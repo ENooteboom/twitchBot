@@ -24,17 +24,17 @@ var config = {
 }
 
 const client = new tmi.client(config)
-// client.connect().catch(console.error);
-client.connect();
+client.connect().catch(console.error);
+// client.connect();
 
 
 client.on("connected", (address, port) => {
     client.action(channelName, "shitter has connected to chat on" + address + ":" + port)
 })
 
-client.on("chat", (channel, user, message, self) => {
+client.on("message", (channel, user, message, self) => {
     if (self) return;
-    if (message == ("!hi" || "!hello" )){
+    if (message.toLowerCase === ('!hi'||'!hello')) {
         client.say(channelName, "Hello Chat Person")
     }
 
@@ -44,7 +44,7 @@ client.on("chat", (channel, user, message, self) => {
     const cmd = args.shift().toLowerCase();
 
     try {
-        let commandfile = require('./commands/${cmd}.js')
+        let commandfile = require(`./commands/${cmd}.js`)
         commandfile.run(client, message, args, user, channel, self)
     } catch (err) {
         client.say(channelName, "Command doesnt exist?")
@@ -52,6 +52,8 @@ client.on("chat", (channel, user, message, self) => {
     }
 
 })
+
+// Events tripper 
 
 client.on("subscription", (channel, username, method, message, userstate) => {
     console.log("subscription", { channel, username, method, message, userstate });
@@ -64,9 +66,9 @@ client.on("resub", (channel, username, _months, method, message, userstate, meth
     let cumulativeMonths = userstate["msg-param-cumulative-months"];
     let sharedStreak = userstate["msg-param-should-share-streak"];
     if(sharedStreak) {
-       client.say(channelName, 'Thanks for Resubing for ${streakMonths} consecutive months, ${username}!'); 
+       client.say(channelName, `Thanks for Resubing for ${streakMonths} consecutive months, ${username}!`); 
     }
        else {
-       client.say(channelName, 'Thanks for resubscribing for ${cumulativeMonths} months, ${username}!');
+       client.say(channelName, `Thanks for resubscribing for ${cumulativeMonths} months, ${username}!`);
     }
 });
