@@ -5,7 +5,8 @@
             "includePath": [
                 "C:\\Program Files (x86)\\Arduino\\tools\\**",
                 "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\**",
-                "C:\\Users\\GHOST\\Documents\\Arduino\\hardware\\espressif\\esp32\\**"
+                "C:\\Users\\GHOST\\Documents\\Arduino\\hardware\\espressif\\esp32\\**",
+                "C:\\Users\\wupqlm\\Documents\\Arduino\\hardware\\espressif\\esp32\\**"
             ],
             "forcedInclude": [],
             "intelliSenseMode": "msvc-x64"

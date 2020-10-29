@@ -15,9 +15,9 @@ var config = {
 
     identity: 
     {
-        username: "noot_gaming",
+        username: config.username,
         //oauth grab @ https://twitchapps.com/tmi
-        password: "oauth:welwx9fvntnnjof5r4b6wqnzo6z5jh",
+        password: config.password,
     },
     channels: [channelName]
 
@@ -33,7 +33,7 @@ client.on("connected", (address, port) => {
 })
 
 client.on("chat", (channel, user, message, self) => {
-    // if (self) return;
+    if (self) return;
     if (message == ("!hi" || "!hello" )){
         client.say(channelName, "Hello Chat Person")
     }
@@ -42,12 +42,31 @@ client.on("chat", (channel, user, message, self) => {
     // cmd handler code
     const args = message.slice(prefix.length).trim().split(/ +/g);
     const cmd = args.shift().toLowerCase();
-    try{
+
+    try {
         let commandfile = require('./commands/${cmd}.js')
         commandfile.run(client, message, args, user, channel, self)
-    }catch (err){
-        // client.say(channelName, "Command doesnt exist?")
+    } catch (err) {
+        client.say(channelName, "Command doesnt exist?")
         return;
     }
 
 })
+
+client.on("subscription", (channel, username, method, message, userstate) => {
+    console.log("subscription", { channel, username, method, message, userstate });
+    client.say(channelName, 'Thanks for Subscribing, ${username}');
+});
+
+client.on("resub", (channel, username, _months, method, message, userstate, methods) => {
+    console.log("resub", { channel, username, _months, method, message, userstate, methods });
+    let streakMonths = userstate["msg-param-streak-months"];
+    let cumulativeMonths = userstate["msg-param-cumulative-months"];
+    let sharedStreak = userstate["msg-param-should-share-streak"];
+    if(sharedStreak) {
+       client.say(channelName, 'Thanks for Resubing for ${streakMonths} consecutive months, ${username}!'); 
+    }
+       else {
+       client.say(channelName, 'Thanks for resubscribing for ${cumulativeMonths} months, ${username}!');
+    }
+});
