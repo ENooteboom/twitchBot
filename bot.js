@@ -66,9 +66,9 @@ client.on("resub", (channel, username, _months, method, message, userstate, meth
     let cumulativeMonths = userstate["msg-param-cumulative-months"];
     let sharedStreak = userstate["msg-param-should-share-streak"];
     if(sharedStreak) {
-       client.say(channelName, `Thanks for Resubing for ${streakMonths} consecutive months, ${username}!`); 
+       client.say(channelName, `Thanks for Resubing for ${streakMonths} consecutive months, @${username}!`); 
     }
        else {
-       client.say(channelName, `Thanks for resubscribing for ${cumulativeMonths} months, ${username}!`);
+       client.say(channelName, `Thanks for resubscribing for ${cumulativeMonths} months, @${user.username}!`);
     }
 });
