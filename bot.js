@@ -2,7 +2,7 @@ var tmi = require("tmi.js")
 var channelName = "noot_gaming"
 var prefix = "!"
 
-var config = {
+var config1 = {
     options: {
         debug: true
     },
@@ -15,15 +15,15 @@ var config = {
 
     identity: 
     {
-        username: config.username,
+        username: "noot_gaming",
         //oauth grab @ https://twitchapps.com/tmi
-        password: config.password,
+        password: "oauth:welwx9fvntnnjof5r4b6wqnzo6z5jh",
     },
     channels: [channelName]
 
 }
 
-const client = new tmi.client(config)
+const client = new tmi.client(config1)
 client.connect().catch(console.error);
 // client.connect();
 
@@ -32,9 +32,9 @@ client.on("connected", (address, port) => {
     client.action(channelName, "shitter has connected to chat on" + address + ":" + port)
 })
 
-client.on("message", (channel, user, message, self) => {
+client.on("chat", (channel, user, message, self) => {
     if (self) return;
-    if (message.toLowerCase === ('!hi'||'!hello')) {
+    if (message == ("!hi")){
         client.say(channelName, "Hello Chat Person")
     }
 
@@ -47,7 +47,7 @@ client.on("message", (channel, user, message, self) => {
         let commandfile = require(`./commands/${cmd}.js`)
         commandfile.run(client, message, args, user, channel, self)
     } catch (err) {
-        client.say(channelName, "Command doesnt exist?")
+        // client.say(channelName, "Command doesnt exist?")
         return;
     }
 
