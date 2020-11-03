@@ -33,8 +33,8 @@ client.on("connected", (address, port) => {
 })
 
 client.on("chat", (channel, user, message, self) => {
-    if (self) return;
-    if (message == ("!hi")){
+    if(self) return;
+    if(message == ("!hi")){
         client.say(channelName, "Hello Chat Person")
     }
 
@@ -69,6 +69,6 @@ client.on("resub", (channel, username, _months, method, message, userstate, meth
        client.say(channelName, `Thanks for Resubing for ${streakMonths} consecutive months, @${username}!`); 
     }
        else {
-       client.say(channelName, `Thanks for resubscribing for ${cumulativeMonths} months, @${user.username}!`);
+       client.say(channelName, `Thanks for resubscribing for ${cumulativeMonths} months, @${username}!`);
     }
 });
