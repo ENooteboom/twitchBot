@@ -27,7 +27,6 @@ const client = new tmi.client(config1)
 client.connect().catch(console.error);
 // client.connect();
 
-
 client.on("connected", (address, port) => {
     client.action(channelName, "shitter has connected to chat on" + address + ":" + port)
 })
@@ -37,7 +36,6 @@ client.on("chat", (channel, user, message, self) => {
     if(message == ("!hi")){
         client.say(channelName, "Hello Chat Person")
     }
-
 
     // cmd handler code
     const args = message.slice(prefix.length).trim().split(/ +/g);
